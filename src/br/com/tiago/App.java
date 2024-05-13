@@ -22,6 +22,8 @@ public class App {
         System.out.println(" Ou digite qualquer coisa para encerrar o sistema");
         Scanner tec = new Scanner(System.in);
         int login = tec.nextInt();
+        int contador = 0;
+        String[][] usuarios = new String[100][4];
 
         do {
             switch (login) {
@@ -32,6 +34,21 @@ public class App {
                 case 2:
                     System.out.println("CADASTRO");
                     System.out.println("------------------");
+                    tec.nextLine(); // Limpa o buffer
+                    System.out.println("Qual o seu nome?");
+                    String nome = tec.nextLine();
+                    System.out.println("Qual o seu email?");
+                    String email = tec.nextLine();
+                    System.out.println("Qual a sua senha?");
+                    String senha = tec.nextLine();
+                    System.out.println("Qual o seu CPF?");
+                    String cpf = tec.nextLine();
+                    usuarios[contador][0] = nome;
+                    usuarios[contador][1] = email;
+                    usuarios[contador][2] = senha;
+                    usuarios[contador][3] = cpf;
+                    contador++;
+                    System.out.println("Usuário cadastrado com sucesso!");
                     break;
                 default:
                     break;
