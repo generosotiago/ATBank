@@ -10,7 +10,7 @@ public class Estoque {
 
         do {
             System.out.println("""
-                    Esse é seu controle de estoque, selecione uma opção: 
+                    --- Esse é seu controle de estoque, selecione uma opção: --- 
                                     
                     1 - Adicionar produto
                     2 - Buscar produto
