@@ -7,23 +7,19 @@ public class Funcoes {
     static ArrayList<Produto> produtos = new ArrayList<>();
     static Scanner ler = new Scanner(System.in);
 
+
     public static void adicionar() {
         Produto produtoNew = new Produto();
         int id;
-        while (true) {
 
-            System.out.println("Digite o id do produto que deseja adicionar: ");
+        System.out.println("Digite o id do produto que deseja adicionar: ");
+        id = ler.nextInt();
+
+        while (verificarID(id)) {
+            System.out.println("ID já existe. Por favor, insira um ID único: ");
             id = ler.nextInt();
-
-            for (Produto p : produtos) {
-                if (p.id == id) {
-                    ler.nextLine();
-                    System.out.println("\nID já existe. Por favor, insira um ID único: \n");
-                    continue;
-                }
-            }
-            break;
         }
+
         produtoNew.id = id;
         ler.nextLine();
         System.out.println("\nNome do produto: ");
@@ -91,19 +87,33 @@ public class Funcoes {
     }
 
     public static void removerProduto() {
+
         System.out.println("Digite o ID do produto que deseja remover: ");
         int id = ler.nextInt();
+
         for (Produto produto : produtos) {
             if (produto.id == id) produtos.remove(produto);
             return;
         }
+
         System.out.println("Não existem produtos cadastrados");
-        return;
+
+        while (!verificarID(id)) {
+            System.out.println("ID não existe. Por favor, insira um ID único: ");
+            id = ler.nextInt();
+        }
+
+        System.out.println("Confirmar a remoção do produto de ID: " + id);
+        String tec = ler.nextLine();
+
+
     }
-    public static void mostrarProdutos(){
+
+
+    public static void mostrarProdutos() {
         int quantidadeTotal = 0;
         double valorTotalEstoque = 0;
-        for (Produto produto : produtos){
+        for (Produto produto : produtos) {
             System.out.println("\nID:" + produto.id);
             System.out.println("Nome:" + produto.nome);
             System.out.println("Valor Unitario:" + produto.valor);
@@ -115,4 +125,16 @@ public class Funcoes {
         System.out.println("A quantidade total de itens no estoque: " + quantidadeTotal);
         System.out.println("O valor total do estoque eh: " + valorTotalEstoque);
     }
+
+    public static boolean verificarID(int id) {
+
+        for (Produto p : produtos) {
+            if (p.id == id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 }
