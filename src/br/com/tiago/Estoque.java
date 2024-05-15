@@ -17,7 +17,7 @@ public class Estoque {
                     3 - Editar produto
                     4 - Remover produto
                     5 - Relatório estoque
-                    6 - Sair do sistema""");
+                    6 - Sair do sistema\n""");
             int opcao = ler.nextInt();
 
 
@@ -35,6 +35,7 @@ public class Estoque {
                     Funcoes.removerProduto();
                     break;
                 case 5:
+                    Funcoes.mostrarProdutos();
                     break;
                 case 6:
                     System.out.println("Encerrando...");
