@@ -9,30 +9,63 @@ public class Funcoes {
 
     public static void adicionar() {
         Produto produtoNew = new Produto();
-        System.out.println("Nome do produto: ");
+        int id;
+        while (true) {
+
+            System.out.println("Digite o id do produto que deseja adicionar: ");
+            id = ler.nextInt();
+
+            for (Produto p : produtos) {
+                if (p.id == id) {
+                    ler.nextLine();
+                    System.out.println("\nID já existe. Por favor, insira um ID único: \n");
+                    continue;
+                }
+            }
+            break;
+        }
+        produtoNew.id = id;
+        ler.nextLine();
+        System.out.println("\nNome do produto: ");
         produtoNew.nome = ler.nextLine();
+        System.out.println("---> Confirma" + " -> " + produtoNew.nome + " <- " + " como nome do produto? (Tecle ENTER para confirmar)");
+        ler.nextLine();
 
-        System.out.println("Digite o id");
-        produtoNew.id = ler.nextInt();
-
-        System.out.println("Digite a quantidade");
+        System.out.println("Digite a quantidade: ");
         produtoNew.quantidade = ler.nextInt();
 
         System.out.println("Digite o valor do produto: ");
         produtoNew.valor = ler.nextDouble();
 
         produtos.add(produtoNew);
+        System.out.println("""
+                \nProduto cadastrado com sucesso,  voltar ao menu ou cadastrar outro produto?
+
+                1 - Voltar ao Menu
+                2 - Cadastrar outro produto\n
+                """);
+        int addOption = ler.nextInt();
+        if (addOption == 2) {
+            adicionar();
+        }
+
     }
 
     public static void buscarProduto() {
-        System.out.println("Digite o ID do produto: ");
-        int id = ler.nextInt();
-        for (Produto produto : produtos) {
-            if (produto.id == id) {
-                System.out.println("Produto encontrado: " + produto.nome);
-            } else {
-                System.out.println("Não encontrado");
+        while (true) {
+            System.out.println("Digite o ID do produto: ");
+            int id = ler.nextInt();
+            for (Produto produto : produtos) {
+                if (produto.id == id) {
+                    System.out.println("Produto encontrado: " + produto.nome + "\nQuantidade em estoque -> " + produto.quantidade);
+                    return;
+                } else {
+                    System.out.println("Produto não encontrado");
+                    return;
+                }
             }
+            System.out.println("Não existem produtos cadastrados");
+            return;
         }
 
     }
@@ -42,7 +75,7 @@ public class Funcoes {
         System.out.println("Digite o ID do produto: ");
         int id = ler.nextInt();
         for (Produto produto : produtos) {
-            if(produto.id == id){
+            if (produto.id == id) {
                 System.out.println("Informe o novo nome: ");
                 ler.nextLine();
                 produto.nome = ler.nextLine();
@@ -50,15 +83,36 @@ public class Funcoes {
                 produto.quantidade = ler.nextInt();
                 System.out.println("Informe o novo valor: ");
                 produto.valor = ler.nextDouble();
-                break;
+                return;
             }
         }
+        System.out.println("Não existem produtos cadastrados");
+        return;
     }
-    public static void removerProduto(){
+
+    public static void removerProduto() {
         System.out.println("Digite o ID do produto que deseja remover: ");
         int id = ler.nextInt();
-        for(Produto produto : produtos){
-            if(produto.id == id) produtos.remove(produto); break;
+        for (Produto produto : produtos) {
+            if (produto.id == id) produtos.remove(produto);
+            return;
         }
+        System.out.println("Não existem produtos cadastrados");
+        return;
+    }
+    public static void mostrarProdutos(){
+        int quantidadeTotal = 0;
+        double valorTotalEstoque = 0;
+        for (Produto produto : produtos){
+            System.out.println("\nID:" + produto.id);
+            System.out.println("Nome:" + produto.nome);
+            System.out.println("Valor Unitario:" + produto.valor);
+            System.out.println("Quantidade:" + produto.quantidade);
+            System.out.println("O valor total do produto: \n" + (produto.valor * produto.quantidade));
+            quantidadeTotal += produto.quantidade;
+            valorTotalEstoque += produto.quantidade * produto.valor;
+        }
+        System.out.println("A quantidade total de itens no estoque: " + quantidadeTotal);
+        System.out.println("O valor total do estoque eh: " + valorTotalEstoque);
     }
 }
