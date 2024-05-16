@@ -91,21 +91,20 @@ public class Funcoes {
         System.out.println("Digite o ID do produto que deseja remover: ");
         int id = ler.nextInt();
 
-        for (Produto produto : produtos) {
-            if (produto.id == id) produtos.remove(produto);
-            return;
+        while (!verificarID(id)) {
+            System.out.println("ID não identificado. Por favor, insira um ID valido: ");
+            id = ler.nextInt();
         }
 
-        System.out.println("Não existem produtos cadastrados");
+        for (int i = 0; i < produtos.size(); i++){
 
-        while (!verificarID(id)) {
-            System.out.println("ID não existe. Por favor, insira um ID único: ");
-            id = ler.nextInt();
+            if(produtos.get(i).id == id){
+                produtos.remove(i);
+            }
         }
 
         System.out.println("Confirmar a remoção do produto de ID: " + id);
         String tec = ler.nextLine();
-
 
     }
 
