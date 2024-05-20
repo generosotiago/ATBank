@@ -8,16 +8,21 @@ public class Estoque {
     public static void main(String[] args) {
         Scanner ler = new Scanner(System.in);
 
+        System.out.println("|   C O N T R O L E    D E    E S T O Q U E   |\n\n" +
+                "" +
+                "Pressione ENTER para prosseguir...");
+            String a = ler.nextLine();
         do {
-            System.out.println("""
-                    --- Esse é seu controle de estoque, selecione uma opção: --- 
-                                    
-                    1 - Adicionar produto
-                    2 - Buscar produto
-                    3 - Editar produto
-                    4 - Remover produto
-                    5 - Relatório estoque
-                    6 - Sair do sistema\n""");
+            System.out.println(""" 
+                     Selecione a operação desejada:
+                    ================================
+                    | 1 - ADICIONAR PRODUTO        |
+                    | 2 - BUSCAR PRODUTO           |
+                    | 3 - EDITAR PRODUTO           |
+                    | 4 - REMOVER PRODUTO          |
+                    | 5 - RELATÓRIO DE ESTOQUE     |
+                    | 6 - SAIR DO SISTEMA          |
+                    ================================""");
             int opcao = ler.nextInt();
 
 

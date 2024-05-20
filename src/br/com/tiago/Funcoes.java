@@ -12,33 +12,34 @@ public class Funcoes {
         Produto produtoNew = new Produto();
         int id;
 
-        System.out.println("Digite o id do produto que deseja adicionar: ");
+        System.out.println("| Digite o ID do produto que deseja adicionar: |\n");
         id = ler.nextInt();
 
         while (verificarID(id)) {
-            System.out.println("ID já existe. Por favor, insira um ID único: ");
+            System.out.println("| ID já existe. Por favor, insira um ID único: |");
             id = ler.nextInt();
         }
 
         produtoNew.id = id;
         ler.nextLine();
-        System.out.println("\nNome do produto: ");
+        System.out.println("\n| Digite o nome do produto: |\n");
         produtoNew.nome = ler.nextLine();
-        System.out.println("---> Confirma" + " -> " + produtoNew.nome + " <- " + " como nome do produto? (Tecle ENTER para confirmar)");
-        ler.nextLine();
 
-        System.out.println("Digite a quantidade: ");
+        System.out.println("| Digite a quantidade: |\n");
         produtoNew.quantidade = ler.nextInt();
 
-        System.out.println("Digite o valor do produto: ");
+        System.out.println("| Digite o valor do produto: |\n");
         produtoNew.valor = ler.nextDouble();
 
         produtos.add(produtoNew);
         System.out.println("""
-                \nProduto cadastrado com sucesso,  voltar ao menu ou cadastrar outro produto?
-
-                1 - Voltar ao Menu
-                2 - Cadastrar outro produto\n
+                \n Produto cadastrado com sucesso!
+                                
+                  - Escolha a próxima operação: -
+                ==================================
+                | 1 - Voltar ao Menu             |
+                | 2 - Cadastrar outro produto    |
+                ==================================
                 """);
         int addOption = ler.nextInt();
         if (addOption == 2) {
@@ -54,7 +55,23 @@ public class Funcoes {
             for (Produto produto : produtos) {
                 if (produto.id == id) {
                     System.out.println("Produto encontrado: " + produto.nome + "\nQuantidade em estoque -> " + produto.quantidade);
-                    return;
+                    int addOption = 4;
+                    while (true){
+                        System.out.println("""
+                                
+                                  - Escolha a próxima operação: -
+                                ==================================
+                                | 1 - VOLTAR AO MENU             |
+                                | 2 - BUSCAR UM NOVO PRODUTO     |
+                                ==================================
+                                """);
+
+                        addOption = ler.nextInt();
+                        if (addOption == 2) {
+                            buscarProduto();
+                        }
+                        return;
+                    }
                 } else {
                     System.out.println("Produto não encontrado");
                     return;
@@ -79,6 +96,18 @@ public class Funcoes {
                 produto.quantidade = ler.nextInt();
                 System.out.println("Informe o novo valor: ");
                 produto.valor = ler.nextDouble();
+                System.out.println("""
+                                        
+                          - Escolha a próxima operação: -
+                        ==================================
+                        | 1 - VOLTAR AO MENU             |
+                        | 2 - EDITAR UM NOVO PRODUTO     |
+                        ==================================
+                        """);
+                int addOption = ler.nextInt();
+                if (addOption == 2) {
+                    editarProduto();
+                }
                 return;
             }
         }
@@ -96,16 +125,26 @@ public class Funcoes {
             id = ler.nextInt();
         }
 
-        for (int i = 0; i < produtos.size(); i++){
+        for (int i = 0; i < produtos.size(); i++) {
 
-            if(produtos.get(i).id == id){
+            if (produtos.get(i).id == id) {
                 produtos.remove(i);
             }
         }
 
-        System.out.println("Confirmar a remoção do produto de ID: " + id);
-        String tec = ler.nextLine();
-
+        System.out.println("Produto REMOVIDO com sucesso!!!");
+        System.out.println("""
+                                
+                  - Escolha a próxima operação: -
+                ==================================
+                | 1 - VOLTAR AO MENU             |
+                | 2 - REMOVER UM NOVO PRODUTO    |
+                ==================================
+                """);
+        int addOption = ler.nextInt();
+        if (addOption == 2) {
+            removerProduto();
+        }
     }
 
 
