@@ -41,12 +41,21 @@ public class Funcoes {
                 | 2 - Cadastrar outro produto    |
                 ==================================
                 """);
-        int addOption = ler.nextInt();
-        if (addOption == 2) {
-            adicionar();
+        while (true) {
+            int addOption = ler.nextInt();
+            switch (addOption) {
+                case 1:
+                    return;
+                case 2:
+                    adicionar();
+                    break;
+                default:
+                    System.out.println("Digite uma opcao valida");
+                    break;
+            }
         }
-
     }
+
 
     public static void buscarProduto() {
         while (true) {
@@ -56,9 +65,9 @@ public class Funcoes {
                 if (produto.id == id) {
                     System.out.println("Produto encontrado: " + produto.nome + "\nQuantidade em estoque -> " + produto.quantidade);
                     int addOption = 4;
-                    while (true){
+                    while (addOption <= 2) {
                         System.out.println("""
-                                
+                                                                
                                   - Escolha a próxima operação: -
                                 ==================================
                                 | 1 - VOLTAR AO MENU             |
