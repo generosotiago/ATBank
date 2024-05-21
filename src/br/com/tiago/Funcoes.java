@@ -12,7 +12,7 @@ public class Funcoes {
         Produto produtoNew = new Produto();
         int id;
 
-        System.out.println("| Digite o ID do produto que deseja adicionar: |\n");
+        System.out.println("| Digite o ID do produto que deseja Cadastrar: |\n");
         id = ler.nextInt();
 
         while (verificarID(id)) {
@@ -50,7 +50,7 @@ public class Funcoes {
                     adicionar();
                     break;
                 default:
-                    System.out.println("Digite uma opcao valida");
+                    System.out.println("Digite uma opção válida");
                     break;
             }
         }
@@ -58,36 +58,47 @@ public class Funcoes {
 
 
     public static void buscarProduto() {
+        if (produtos.isEmpty()) {
+            System.out.println("| Não existem produtos cadastrados |");
+            return;
+        }
+
         while (true) {
-            System.out.println("Digite o ID do produto: ");
+            System.out.println("| Digite o ID do produto: |\n");
             int id = ler.nextInt();
+            boolean produtoEncontrado = false;
             for (Produto produto : produtos) {
                 if (produto.id == id) {
-                    System.out.println("Produto encontrado: " + produto.nome + "\nQuantidade em estoque -> " + produto.quantidade);
-                    int addOption = 4;
-                    while (addOption <= 2) {
-                        System.out.println("""
-                                                                
-                                  - Escolha a próxima operação: -
-                                ==================================
-                                | 1 - VOLTAR AO MENU             |
-                                | 2 - BUSCAR UM NOVO PRODUTO     |
-                                ==================================
-                                """);
-
-                        addOption = ler.nextInt();
-                        if (addOption == 2) {
-                            buscarProduto();
+                    produtoEncontrado = true;
+                    System.out.println("| PRODUTO ENCONTRADO: " + produto.nome + "|\n" +
+                            "| QUANTIDADE EM ESTOQUE:  " + produto.quantidade + "|");
+                    System.out.println("""
+                              - Escolha a próxima operação: -
+                            ==================================
+                            | 1 - Voltar ao Menu             |
+                            | 2 - Buscar outro produto       |
+                            ==================================
+                            """);
+                    while (true) {
+                        int addOption = ler.nextInt();
+                        switch (addOption) {
+                            case 1:
+                                return;
+                            case 2:
+                                buscarProduto();
+                                return;
+                            default:
+                                System.out.println("Digite uma opcao valida");
+                                break;
                         }
-                        return;
                     }
-                } else {
-                    System.out.println("Produto não encontrado");
-                    return;
+
                 }
             }
-            System.out.println("Não existem produtos cadastrados");
-            return;
+            if (!produtoEncontrado){
+                    System.out.println("| Produto não encontrado |");
+                    return;
+            }
         }
 
     }
@@ -106,31 +117,39 @@ public class Funcoes {
                 System.out.println("Informe o novo valor: ");
                 produto.valor = ler.nextDouble();
                 System.out.println("""
+                        \n Produto EDITADO com sucesso!
                                         
                           - Escolha a próxima operação: -
                         ==================================
-                        | 1 - VOLTAR AO MENU             |
-                        | 2 - EDITAR UM NOVO PRODUTO     |
+                        | 1 - Voltar ao Menu             |
+                        | 2 - Editar outro produto       |
                         ==================================
                         """);
-                int addOption = ler.nextInt();
-                if (addOption == 2) {
-                    editarProduto();
+                while (true) {
+                    int addOption = ler.nextInt();
+                    switch (addOption) {
+                        case 1:
+                            return;
+                        case 2:
+                            editarProduto();
+                            break;
+                        default:
+                            System.out.println("Digite uma opcao valida");
+                            break;
+                    }
                 }
-                return;
             }
         }
         System.out.println("Não existem produtos cadastrados");
-        return;
     }
 
     public static void removerProduto() {
 
-        System.out.println("Digite o ID do produto que deseja remover: ");
+        System.out.println("| Digite o ID do produto que deseja remover: |");
         int id = ler.nextInt();
 
         while (!verificarID(id)) {
-            System.out.println("ID não identificado. Por favor, insira um ID valido: ");
+            System.out.println("| ID não identificado. Por favor, insira um ID valido: |");
             id = ler.nextInt();
         }
 
@@ -143,16 +162,24 @@ public class Funcoes {
 
         System.out.println("Produto REMOVIDO com sucesso!!!");
         System.out.println("""
-                                
                   - Escolha a próxima operação: -
                 ==================================
-                | 1 - VOLTAR AO MENU             |
-                | 2 - REMOVER UM NOVO PRODUTO    |
+                | 1 - Voltar ao Menu             |
+                | 2 - Remover outro produto      |
                 ==================================
                 """);
-        int addOption = ler.nextInt();
-        if (addOption == 2) {
-            removerProduto();
+        while (true) {
+            int addOption = ler.nextInt();
+            switch (addOption) {
+                case 1:
+                    return;
+                case 2:
+                    removerProduto();
+                    break;
+                default:
+                    System.out.println("Digite uma opcao valida");
+                    break;
+            }
         }
     }
 
@@ -161,16 +188,16 @@ public class Funcoes {
         int quantidadeTotal = 0;
         double valorTotalEstoque = 0;
         for (Produto produto : produtos) {
-            System.out.println("\nID:" + produto.id);
-            System.out.println("Nome:" + produto.nome);
-            System.out.println("Valor Unitario:" + produto.valor);
-            System.out.println("Quantidade:" + produto.quantidade);
-            System.out.println("O valor total do produto: \n" + (produto.valor * produto.quantidade));
+            System.out.println("\n| ID:" + produto.id + " |");
+            System.out.println("| Nome:" + produto.nome+ " |");
+            System.out.println("| Valor Unitario:" + produto.valor+ " |");
+            System.out.println("| Quantidade:" + produto.quantidade+ " |");
+            System.out.println("| O valor total do produto: " + (produto.valor * produto.quantidade)+ " |");
             quantidadeTotal += produto.quantidade;
             valorTotalEstoque += produto.quantidade * produto.valor;
         }
-        System.out.println("A quantidade total de itens no estoque: " + quantidadeTotal);
-        System.out.println("O valor total do estoque eh: " + valorTotalEstoque);
+        System.out.println("| A quantidade total de itens no estoque: " + quantidadeTotal + " |");
+        System.out.println("| O valor total do estoque eh: " + valorTotalEstoque + " |");
     }
 
     public static boolean verificarID(int id) {
