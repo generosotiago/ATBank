@@ -105,6 +105,11 @@ public class Funcoes {
 
 
     public static void editarProduto() {
+        if (produtos.isEmpty()) {
+            System.out.println("| Não existem produtos cadastrados |");
+            return;
+        }
+
         System.out.println("Digite o ID do produto: ");
         int id = ler.nextInt();
         for (Produto produto : produtos) {
@@ -144,6 +149,10 @@ public class Funcoes {
     }
 
     public static void removerProduto() {
+        if (produtos.isEmpty()) {
+            System.out.println("| Não existem produtos cadastrados |");
+            return;
+        }
 
         System.out.println("| Digite o ID do produto que deseja remover: |");
         int id = ler.nextInt();
@@ -174,6 +183,10 @@ public class Funcoes {
                 case 1:
                     return;
                 case 2:
+                    if (produtos.isEmpty()) {
+                        System.out.println("| Não existem produtos cadastrados |");
+                        return;
+                    }
                     removerProduto();
                     break;
                 default:
