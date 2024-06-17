@@ -169,7 +169,7 @@ public class Funcoes {
         }
 
 
-        if (quantidadeRemovida < produto.) {
+        if (quantidadeRemovida > 0) {
             System.out.println(quantidadeRemovida + " produto(s) REMOVIDO(s) com sucesso!!!");
         } else {
             System.out.println("Nenhum produto removido. Verifique o ID e a quantidade.");
@@ -225,7 +225,7 @@ public class Funcoes {
                 System.out.println("| O valor total do estoque eh: " + valorTotalEstoque + " |");
             }else {
 
-                System.out.println("Não foi possível calcular o valor total do estoque.");
+                System.out.println("Não foi possível calcular o valor total do produto.");
             }
         }
 
