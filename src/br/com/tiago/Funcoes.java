@@ -19,7 +19,6 @@ public class Funcoes {
             System.out.println("| ID já existe. Por favor, insira um ID único: |");
             id = ler.nextInt();
         }
-
         produtoNew.id = id;
         ler.nextLine();
         System.out.println("\n| Digite o nome do produto: |\n");
@@ -55,14 +54,11 @@ public class Funcoes {
             }
         }
     }
-
-
     public static void buscarProduto() {
         if (produtos.isEmpty()) {
             System.out.println("| Não existem produtos cadastrados |");
             return;
         }
-
         while (true) {
             System.out.println("| Digite o ID do produto: |\n");
             int id = ler.nextInt();
@@ -71,7 +67,8 @@ public class Funcoes {
                 if (produto.id == id) {
                     produtoEncontrado = true;
                     System.out.println("| PRODUTO ENCONTRADO: " + produto.nome + "|\n" +
-                            "| QUANTIDADE EM ESTOQUE:  " + produto.quantidade + "|");
+                            "| QUANTIDADE EM ESTOQUE:  " + produto.quantidade + "|\n" +
+                                    "| VALOR UNITARIO DO PRODUTO: R$" + produto.valor + "|");
                     System.out.println("""
                               - Escolha a próxima operação: -
                             ==================================
@@ -102,14 +99,11 @@ public class Funcoes {
         }
 
     }
-
-
     public static void editarProduto() {
         if (produtos.isEmpty()) {
             System.out.println("| Não existem produtos cadastrados |");
             return;
         }
-
         System.out.println("Digite o ID do produto: ");
         int id = ler.nextInt();
         for (Produto produto : produtos) {
@@ -147,7 +141,6 @@ public class Funcoes {
         }
         System.out.println("Não existem produtos cadastrados");
     }
-
     public static void removerProduto() {
         if (produtos.isEmpty()) {
             System.out.println("| Não existem produtos cadastrados |");
@@ -162,14 +155,25 @@ public class Funcoes {
             id = ler.nextInt();
         }
 
-        for (int i = 0; i < produtos.size(); i++) {
+        System.out.println("| Quantidade de produtos que você deseja remover? |");
+        int quantidadeRemovida = ler.nextInt();
 
-            if (produtos.get(i).id == id) {
-                produtos.remove(i);
+
+        for (Produto produto : produtos) {
+            if (quantidadeRemovida <= produto.quantidade) {
+                produto.quantidade = produto.quantidade - quantidadeRemovida;
+            } else {
+                System.out.println("Quantidade solicitada excede a quantidade disponível. Produto não removido.");
             }
+            break;
         }
 
-        System.out.println("Produto REMOVIDO com sucesso!!!");
+
+        if (quantidadeRemovida < produto.) {
+            System.out.println(quantidadeRemovida + " produto(s) REMOVIDO(s) com sucesso!!!");
+        } else {
+            System.out.println("Nenhum produto removido. Verifique o ID e a quantidade.");
+        }
         System.out.println("""
                   - Escolha a próxima operação: -
                 ==================================
@@ -195,24 +199,37 @@ public class Funcoes {
             }
         }
     }
-
-
     public static void mostrarProdutos() {
         int quantidadeTotal = 0;
         double valorTotalEstoque = 0;
         for (Produto produto : produtos) {
             System.out.println("\n| ID:" + produto.id + " |");
-            System.out.println("| Nome:" + produto.nome+ " |");
-            System.out.println("| Valor Unitario:" + produto.valor+ " |");
-            System.out.println("| Quantidade:" + produto.quantidade+ " |");
-            System.out.println("| O valor total do produto: " + (produto.valor * produto.quantidade)+ " |");
-            quantidadeTotal += produto.quantidade;
-            valorTotalEstoque += produto.quantidade * produto.valor;
-        }
-        System.out.println("| A quantidade total de itens no estoque: " + quantidadeTotal + " |");
-        System.out.println("| O valor total do estoque eh: " + valorTotalEstoque + " |");
-    }
+            System.out.println("| Nome:" + produto.nome + " |");
+            System.out.println("| Valor Unitario:" + produto.valor + " |");
+            if (produto.quantidade <= 0) {
+                System.out.println("| Quantidade: !ESTOQUE ZERADO! |");
+            } else {
+                System.out.println("| Quantidade:" + produto.quantidade + " |");
+            }
+            if (produto.quantidade > 0) {
+                System.out.println("| O valor total do produto: 0");
+            } else {
+                System.out.println("| O valor total do produto: " + (produto.valor * produto.quantidade) + " |");
+            }
 
+            if (produto.quantidade > 0) {
+                quantidadeTotal += produto.quantidade;
+                valorTotalEstoque += produto.quantidade * produto.valor;
+
+                System.out.println("| A quantidade total de itens no estoque: " + quantidadeTotal + " |");
+                System.out.println("| O valor total do estoque eh: " + valorTotalEstoque + " |");
+            }else {
+
+                System.out.println("Não foi possível calcular o valor total do estoque.");
+            }
+        }
+
+    }
     public static boolean verificarID(int id) {
 
         for (Produto p : produtos) {
@@ -222,6 +239,4 @@ public class Funcoes {
         }
         return false;
     }
-
-
 }
